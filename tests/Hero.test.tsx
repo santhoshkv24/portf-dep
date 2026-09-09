@@ -14,12 +14,14 @@ describe('Hero Component ("The Editorial Monolith")', () => {
   });
 
   describe('Headline & Editorial Typography', () => {
-    it('renders the verified headline name from resumeData with display typography', () => {
+    it('renders the verified headline name from resumeData with display typography and allows text selection', () => {
       render(<Hero />);
       const headline = screen.getByRole('heading', { level: 1 });
       expect(headline).toBeInTheDocument();
       expect(headline).toHaveTextContent(resumeData.name);
       expect(screen.getByText(resumeData.name)).toBeInTheDocument();
+      // Ensure select-none is not present so visitors can copy the name
+      expect(headline.className).not.toMatch(/select-none/);
     });
 
     it('renders the verified role "SOFTWARE ENGINEER / SYSTEMS & APPLIED AI"', () => {
@@ -131,6 +133,10 @@ describe('Hero Component ("The Editorial Monolith")', () => {
       const credentialsButton = screen.getByRole('button', { name: /View Credentials/i });
       expect(credentialsButton).toBeInTheDocument();
 
+      // Check aria-hidden on icon
+      const icon = credentialsButton.querySelector('svg');
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+
       fireEvent.click(credentialsButton);
       expect(onOpenResume).toHaveBeenCalledTimes(1);
     });
@@ -147,9 +153,17 @@ describe('Hero Component ("The Editorial Monolith")', () => {
   });
 
   describe('Keyboard Navigation', () => {
-    it('invokes onOpenResume when [R] key is pressed', () => {
+    it('defaults enableKeyboardNav to false to avoid duplicate listeners alongside HeaderHUD', () => {
       const onOpenResume = vi.fn();
       render(<Hero onOpenResume={onOpenResume} />);
+
+      fireEvent.keyDown(window, { key: 'r' });
+      expect(onOpenResume).not.toHaveBeenCalled();
+    });
+
+    it('invokes onOpenResume when [R] key is pressed and enableKeyboardNav is true', () => {
+      const onOpenResume = vi.fn();
+      render(<Hero onOpenResume={onOpenResume} enableKeyboardNav={true} />);
 
       fireEvent.keyDown(window, { key: 'r' });
       expect(onOpenResume).toHaveBeenCalledTimes(1);
@@ -158,11 +172,11 @@ describe('Hero Component ("The Editorial Monolith")', () => {
       expect(onOpenResume).toHaveBeenCalledTimes(2);
     });
 
-    it('does not trigger onOpenResume when typing inside an input element', () => {
+    it('does not trigger onOpenResume when typing inside an input element even if enableKeyboardNav is true', () => {
       const onOpenResume = vi.fn();
       render(
         <div>
-          <Hero onOpenResume={onOpenResume} />
+          <Hero onOpenResume={onOpenResume} enableKeyboardNav={true} />
           <input data-testid="input-box" />
         </div>
       );
@@ -174,7 +188,7 @@ describe('Hero Component ("The Editorial Monolith")', () => {
       expect(onOpenResume).not.toHaveBeenCalled();
     });
 
-    it('does not trigger onOpenResume when enableKeyboardNav is false', () => {
+    it('does not trigger onOpenResume when enableKeyboardNav is explicitly false', () => {
       const onOpenResume = vi.fn();
       render(<Hero onOpenResume={onOpenResume} enableKeyboardNav={false} />);
 
@@ -220,7 +234,7 @@ describe('Hero Component ("The Editorial Monolith")', () => {
       expect(stateDisplay.textContent).toBe('default');
     });
 
-    it('updates cursor state on portrait container mouse enter and resets on leave', () => {
+    it('updates cursor state to "inspect" with text "PORTRAIT" on portrait container mouse enter and resets on leave', () => {
       render(
         <CursorProvider>
           <CursorInspector />
@@ -232,10 +246,13 @@ describe('Hero Component ("The Editorial Monolith")', () => {
       fireEvent.mouseEnter(portraitContainer);
 
       const stateDisplay = screen.getByTestId('cursor-state');
-      expect(stateDisplay.textContent).not.toBe('default');
+      const textDisplay = screen.getByTestId('cursor-text');
+      expect(stateDisplay.textContent).toBe('inspect');
+      expect(textDisplay.textContent).toBe('PORTRAIT');
 
       fireEvent.mouseLeave(portraitContainer);
       expect(stateDisplay.textContent).toBe('default');
+      expect(textDisplay.textContent).toBe('');
     });
 
     it('safely renders without throwing when outside CursorProvider', () => {

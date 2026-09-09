@@ -17,11 +17,25 @@ export interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({
   onOpenResume,
   onResumeOpen,
-  enableKeyboardNav = true,
+  enableKeyboardNav = false,
   className,
 }) => {
   const prefersReducedMotion = useReducedMotion();
   const cursor = useOptionalCursor();
+
+  // Derived telemetry data synchronized from resumeData
+  const primaryEducation = resumeData.education[0];
+  const primaryExperience = resumeData.experience[0];
+  const primaryCert = resumeData.certifications[0];
+
+  const cgpaClean = primaryEducation?.cgpa ? primaryEducation.cgpa.split('/')[0] : '9.29';
+  const educationBadgeText = `${primaryEducation?.institution?.toUpperCase() ?? 'SRM UNIVERSITY AP'} • CGPA ${cgpaClean}`;
+  const companyShort = primaryExperience?.company.match(/\(([^)]+)\)/)?.[1] ?? primaryExperience?.company ?? 'BNY';
+  const experienceBadgeText = `${companyShort} ${primaryExperience?.role ?? 'SDE INTERN'}`.toUpperCase();
+  const certBadgeText = primaryCert?.title.includes('Java SE 17')
+    ? `${primaryCert.issuer.toUpperCase()} JAVA SE 17`
+    : (primaryCert?.title.toUpperCase() ?? 'ORACLE JAVA SE 17');
+  const cityLocation = resumeData.location.split(',')[0].trim().toUpperCase();
 
   // Detect coarse pointer (touch devices) where 3D tilt should be bypassed
   const [isTouchDevice] = useState(() => {
@@ -183,13 +197,13 @@ export const Hero: React.FC<HeroProps> = ({
               </div>
               <span className="text-zinc-600 hidden sm:inline">•</span>
               <span className="text-zinc-400 hidden sm:inline tracking-wider">
-                13.0827° N, 80.2707° E // CHENNAI
+                13.0827° N, 80.2707° E // {cityLocation}
               </span>
             </motion.div>
 
             {/* Editorial Headline Block */}
             <motion.div variants={itemVariants} className="mb-4 sm:mb-6">
-              <h1 className="font-display font-black tracking-tight text-chalk uppercase leading-[0.92] select-none text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
+              <h1 className="font-display font-black tracking-tight text-chalk uppercase leading-[0.92] text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
                 <span className="block text-chalk drop-shadow-sm">{resumeData.name}</span>
               </h1>
             </motion.div>
@@ -219,15 +233,15 @@ export const Hero: React.FC<HeroProps> = ({
             >
               <div className="flex flex-col">
                 <span className="text-zinc-500 text-[10px] tracking-wider uppercase">ACADEMICS</span>
-                <span className="text-chalk font-semibold mt-0.5">SRM AP • CGPA 9.29</span>
+                <span className="text-chalk font-semibold mt-0.5">SRM AP • CGPA {cgpaClean}</span>
               </div>
               <div className="flex flex-col border-l border-border-hairline pl-3">
                 <span className="text-zinc-500 text-[10px] tracking-wider uppercase">EXPERIENCE</span>
-                <span className="text-chalk font-semibold mt-0.5">BNY SDE INTERN</span>
+                <span className="text-chalk font-semibold mt-0.5">{experienceBadgeText}</span>
               </div>
               <div className="flex flex-col border-l border-border-hairline pl-3 col-span-2 sm:col-span-1">
                 <span className="text-zinc-500 text-[10px] tracking-wider uppercase">CERTIFICATION</span>
-                <span className="text-chalk font-semibold mt-0.5">ORACLE JAVA SE 17</span>
+                <span className="text-chalk font-semibold mt-0.5">{certBadgeText}</span>
               </div>
             </motion.div>
 
@@ -272,7 +286,10 @@ export const Hero: React.FC<HeroProps> = ({
                   'focus:outline-none focus-visible:ring-2 focus-visible:ring-cadmium'
                 )}
               >
-                <FileText className="w-4 h-4 text-zinc-400 group-hover:text-cadmium transition-colors" />
+                <FileText
+                  className="w-4 h-4 text-zinc-400 group-hover:text-cadmium transition-colors"
+                  aria-hidden="true"
+                />
                 <span>View Credentials</span>
                 <span className="text-cadmium font-mono text-[11px] font-bold">[R]</span>
               </button>
@@ -367,7 +384,7 @@ export const Hero: React.FC<HeroProps> = ({
                   )}
                 >
                   <ShieldCheck className="w-3.5 h-3.5 text-zinc-400" aria-hidden="true" />
-                  <span className="font-semibold">SRM UNIVERSITY AP • CGPA 9.29</span>
+                  <span className="font-semibold">{educationBadgeText}</span>
                 </div>
 
                 {/* Telemetry Badge 2: Experience (Bottom Right Overlay) */}
@@ -384,7 +401,7 @@ export const Hero: React.FC<HeroProps> = ({
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cadmium opacity-75" />
                     <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cadmium" />
                   </span>
-                  <span className="font-semibold text-chalk">BNY SDE INTERN</span>
+                  <span className="font-semibold text-chalk">{experienceBadgeText}</span>
                 </div>
 
                 {/* Bottom Left Coordinate Stamp */}
