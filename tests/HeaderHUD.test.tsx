@@ -34,6 +34,7 @@ describe('HeaderHUD Component', () => {
       const nameElements = screen.getAllByText(resumeData.name);
       expect(nameElements.length).toBeGreaterThan(0);
       expect(nameElements[0]).toBeInTheDocument();
+      expect(nameElements[0]).toHaveClass('font-display');
     });
 
     it('renders the status pulse dot with cadmium accent styling', () => {
@@ -209,6 +210,7 @@ describe('HeaderHUD Component', () => {
       const toggleButton = screen.getByRole('button', { name: /toggle navigation menu/i });
       expect(toggleButton).toBeInTheDocument();
       expect(toggleButton).toHaveAttribute('aria-expanded', 'false');
+      expect(toggleButton).not.toHaveAttribute('aria-controls');
     });
 
     it('opens and closes the mobile menu drawer upon clicking toggle button', () => {
@@ -216,15 +218,18 @@ describe('HeaderHUD Component', () => {
 
       const toggleButton = screen.getByRole('button', { name: /toggle navigation menu/i });
       expect(toggleButton).toHaveAttribute('aria-expanded', 'false');
+      expect(toggleButton).not.toHaveAttribute('aria-controls');
 
       // Click to open
       fireEvent.click(toggleButton);
       expect(toggleButton).toHaveAttribute('aria-expanded', 'true');
+      expect(toggleButton).toHaveAttribute('aria-controls', 'mobile-nav-drawer');
       expect(screen.getByTestId('mobile-menu-drawer')).toBeInTheDocument();
 
       // Click to close
       fireEvent.click(toggleButton);
       expect(toggleButton).toHaveAttribute('aria-expanded', 'false');
+      expect(toggleButton).not.toHaveAttribute('aria-controls');
       expect(screen.queryByTestId('mobile-menu-drawer')).not.toBeInTheDocument();
     });
 

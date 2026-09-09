@@ -4,7 +4,7 @@ import React from 'react';
 import { useReducedMotion } from '../src/hooks/useReducedMotion';
 import { useKeyboardNav } from '../src/hooks/useKeyboardNav';
 import { useLenis } from '../src/hooks/useLenis';
-import { CursorProvider, useCursor } from '../src/context/CursorContext';
+import { CursorProvider, useCursor, useOptionalCursor } from '../src/context/CursorContext';
 import { CustomCursor } from '../src/components/CustomCursor';
 
 describe('useReducedMotion', () => {
@@ -233,6 +233,20 @@ describe('useKeyboardNav', () => {
 });
 
 describe('CursorContext & useCursor', () => {
+  it('returns null safely when useOptionalCursor is called outside CursorProvider', () => {
+    const { result } = renderHook(() => useOptionalCursor());
+    expect(result.current).toBeNull();
+  });
+
+  it('provides cursor context value when useOptionalCursor is called within CursorProvider', () => {
+    const wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) =>
+      React.createElement(CursorProvider, null, children);
+    const { result } = renderHook(() => useOptionalCursor(), { wrapper });
+
+    expect(result.current).not.toBeNull();
+    expect(result.current?.cursorState).toBe('default');
+  });
+
   it('throws error when useCursor is called outside of CursorProvider', () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
     expect(() => renderHook(() => useCursor())).toThrowError('useCursor must be used within a CursorProvider');

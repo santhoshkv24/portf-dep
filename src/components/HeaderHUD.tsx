@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Menu, X, FileText } from 'lucide-react';
 import { resumeData } from '../data/resumeData';
-import { useCursor, CursorContextValue } from '../context/CursorContext';
+import { useOptionalCursor } from '../context/CursorContext';
 import { useKeyboardNav } from '../hooks/useKeyboardNav';
 import { cn } from '../utils/cn';
 
@@ -25,18 +25,23 @@ export const NAV_ITEMS: NavItem[] = [
 ];
 
 /**
+ * Module-scoped formatter for standard 24-hour Indian Standard Time (IST)
+ * representation: "HH:mm:ss IST" using the Asia/Kolkata timezone.
+ */
+const istFormatter = new Intl.DateTimeFormat('en-GB', {
+  timeZone: 'Asia/Kolkata',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  hour12: false,
+});
+
+/**
  * Formats a Date instance into standard 24-hour Indian Standard Time (IST)
  * representation: "HH:mm:ss IST" using the Asia/Kolkata timezone.
  */
 export function formatISTTime(date: Date = new Date()): string {
-  const formatter = new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'Asia/Kolkata',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false,
-  });
-  return `${formatter.format(date)} IST`;
+  return `${istFormatter.format(date)} IST`;
 }
 
 export const HeaderHUD: React.FC<HeaderHUDProps> = ({
@@ -48,13 +53,8 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
   const [time, setTime] = useState<string>(() => formatISTTime());
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
-  // Safely acquire cursor context if rendered within CursorProvider
-  let cursor: CursorContextValue | null = null;
-  try {
-    cursor = useCursor();
-  } catch {
-    cursor = null;
-  }
+  // Safely acquire optional cursor context without throwing outside provider
+  const cursor = useOptionalCursor();
 
   const handleCursorEnter = useCallback(() => {
     cursor?.setCursor('hover');
@@ -118,8 +118,8 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-40 w-full',
-        'bg-[#08090a]/85 backdrop-blur-md',
-        'border-b border-white/[0.08]',
+        'bg-obsidian/85 backdrop-blur-md',
+        'border-b border-border-hairline',
         className
       )}
     >
@@ -131,9 +131,9 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
             onClick={(e) => handleNavClick(e, '#hero')}
             onMouseEnter={handleCursorEnter}
             onMouseLeave={handleCursorLeave}
-            className="group flex flex-col focus:outline-none focus-visible:ring-1 focus-visible:ring-[#ff4d00]"
+            className="group flex flex-col focus:outline-none focus-visible:ring-1 focus-visible:ring-cadmium"
           >
-            <span className="font-syne font-bold tracking-tight text-chalk text-sm sm:text-base group-hover:text-white transition-colors truncate">
+            <span className="font-display font-bold tracking-tight text-chalk text-sm sm:text-base group-hover:text-white transition-colors truncate">
               {resumeData.name}
             </span>
             <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest hidden sm:block">
@@ -142,13 +142,13 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
           </a>
 
           {/* Telemetry pulse and Chennai IST timestamp */}
-          <div className="flex items-center gap-2 border-l border-white/[0.08] pl-4 sm:pl-6 text-xs font-mono">
+          <div className="flex items-center gap-2 border-l border-border-hairline pl-4 sm:pl-6 text-xs font-mono">
             <span
               className="relative flex h-2 w-2 items-center justify-center shrink-0"
               aria-label="Systems active telemetry pulse"
             >
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff4d00] opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#ff4d00]" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cadmium opacity-75" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cadmium" />
             </span>
             <span className="text-zinc-500 text-[11px] hidden lg:inline">CHENNAI</span>
             <span
@@ -172,10 +172,10 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
               onClick={(e) => handleNavClick(e, item.href)}
               onMouseEnter={handleCursorEnter}
               onMouseLeave={handleCursorLeave}
-              className="relative text-zinc-400 hover:text-chalk py-1 transition-colors duration-150 group focus:outline-none focus-visible:text-[#ff4d00]"
+              className="relative text-zinc-400 hover:text-chalk py-1 transition-colors duration-150 group focus:outline-none focus-visible:text-cadmium"
             >
               <span>{item.label}</span>
-              <span className="absolute bottom-0 left-0 w-0 h-px bg-[#ff4d00] transition-all duration-200 group-hover:w-full" />
+              <span className="absolute bottom-0 left-0 w-0 h-px bg-cadmium transition-all duration-200 group-hover:w-full" />
             </a>
           ))}
         </nav>
@@ -184,11 +184,11 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
         <div className="flex items-center gap-3">
           {/* Section nav shortcut hint [J/K] */}
           <div
-            className="hidden xl:flex items-center gap-1.5 text-[11px] font-mono text-zinc-500 border border-white/[0.08] px-2.5 py-1 rounded bg-white/[0.02]"
+            className="hidden xl:flex items-center gap-1.5 text-[11px] font-mono text-zinc-500 border border-border-hairline px-2.5 py-1 rounded bg-white/[0.02]"
             title="Use J and K keys to smoothly navigate between sections"
           >
             <span className="text-zinc-400">NAV</span>
-            <kbd className="text-[#ff4d00] font-semibold tracking-wider">[J/K]</kbd>
+            <kbd className="text-cadmium font-semibold tracking-wider">[J/K]</kbd>
           </div>
 
           {/* Quick Action Resume (R) Button */}
@@ -201,13 +201,13 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
             className={cn(
               'hidden sm:flex items-center gap-2 px-3 py-1.5 rounded',
               'text-xs font-mono text-chalk border border-white/[0.12]',
-              'bg-white/[0.03] hover:bg-[#ff4d00]/10 hover:border-[#ff4d00]/50 hover:text-white',
-              'transition-all duration-200 group focus:outline-none focus-visible:ring-1 focus-visible:ring-[#ff4d00]'
+              'bg-white/[0.03] hover:bg-cadmium/10 hover:border-cadmium/50 hover:text-white',
+              'transition-all duration-200 group focus:outline-none focus-visible:ring-1 focus-visible:ring-cadmium'
             )}
           >
-            <FileText className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#ff4d00] transition-colors" />
+            <FileText className="w-3.5 h-3.5 text-zinc-400 group-hover:text-cadmium transition-colors" />
             <span>Resume</span>
-            <kbd className="text-[10px] text-[#ff4d00] bg-white/[0.05] px-1 py-0.5 rounded border border-white/[0.08] font-bold">
+            <kbd className="text-[10px] text-cadmium bg-white/[0.05] px-1 py-0.5 rounded border border-border-hairline font-bold">
               [R]
             </kbd>
           </button>
@@ -220,11 +220,11 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
             onMouseLeave={handleCursorLeave}
             aria-label="Toggle navigation menu"
             aria-expanded={isMobileMenuOpen}
-            aria-controls="mobile-nav-drawer"
+            aria-controls={isMobileMenuOpen ? 'mobile-nav-drawer' : undefined}
             className={cn(
-              'md:hidden p-2 rounded text-zinc-400 hover:text-chalk border border-white/[0.08]',
+              'md:hidden p-2 rounded text-zinc-400 hover:text-chalk border border-border-hairline',
               'bg-white/[0.02] hover:bg-white/[0.06] transition-colors',
-              'focus:outline-none focus-visible:ring-1 focus-visible:ring-[#ff4d00]'
+              'focus:outline-none focus-visible:ring-1 focus-visible:ring-cadmium'
             )}
           >
             {isMobileMenuOpen ? (
@@ -244,7 +244,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
           role="dialog"
           aria-modal="true"
           aria-label="Mobile Navigation"
-          className="md:hidden border-b border-white/[0.08] bg-[#08090a]/98 backdrop-blur-xl px-4 py-5 flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-150"
+          className="md:hidden border-b border-border-hairline bg-obsidian/98 backdrop-blur-xl px-4 py-5 flex flex-col gap-4 transition-all duration-200 ease-out"
         >
           {/* Mobile Navigation Links */}
           <nav className="flex flex-col space-y-1">
@@ -264,11 +264,11 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
           </nav>
 
           {/* Mobile Actions & Telemetry Footer */}
-          <div className="pt-3 border-t border-white/[0.08] flex flex-col gap-3">
+          <div className="pt-3 border-t border-border-hairline flex flex-col gap-3">
             <button
               type="button"
               onClick={handleMobileResumeClick}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded text-xs font-mono text-white bg-[#ff4d00] hover:bg-[#ff6b2b] transition-colors font-semibold"
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded text-xs font-mono text-white bg-cadmium hover:bg-cadmium-hover transition-colors font-semibold"
             >
               <FileText className="w-4 h-4" />
               <span>Open Resume [R]</span>
@@ -276,7 +276,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
 
             <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 px-1 pt-1">
               <span>IST CLOCK: {time}</span>
-              <span className="text-[#ff4d00] font-medium">[J/K] SECTION NAV</span>
+              <span className="text-cadmium font-medium">[J/K] SECTION NAV</span>
             </div>
           </div>
         </div>

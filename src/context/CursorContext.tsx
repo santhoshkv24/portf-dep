@@ -42,6 +42,10 @@ export const CursorProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   return <CursorContext.Provider value={value}>{children}</CursorContext.Provider>;
 };
 
+export function useOptionalCursor(): CursorContextValue | null {
+  return useContext(CursorContext);
+}
+
 export function useCursor(): CursorContextValue {
   const context = useContext(CursorContext);
   if (!context) {
