@@ -14,7 +14,13 @@ export const CustomCursor: React.FC = () => {
   const { cursorState, cursorText } = useCursor();
   const prefersReducedMotion = useReducedMotion();
   const [isVisible, setIsVisible] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isTouchDevice] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return Boolean(
+      window.matchMedia?.('(pointer: coarse)').matches ||
+      (!window.matchMedia && typeof navigator !== 'undefined' && (navigator.maxTouchPoints ?? 0) > 0)
+    );
+  });
 
   // Direct mouse coordinates
   const mouseX = useMotionValue(-100);
@@ -30,23 +36,10 @@ export const CustomCursor: React.FC = () => {
       return;
     }
 
-    // Detect touch / coarse pointer devices
-    const checkTouch = () => {
-      const isCoarse = Boolean(
-        window.matchMedia?.('(pointer: coarse)').matches ||
-        (!window.matchMedia && typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0)
-      );
-      setIsTouchDevice(isCoarse);
-    };
-
-    checkTouch();
-
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
-      if (!isVisible) {
-        setIsVisible(true);
-      }
+      setIsVisible((prev) => (prev ? prev : true));
     };
 
     const handleMouseLeave = () => {
@@ -66,7 +59,7 @@ export const CustomCursor: React.FC = () => {
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
     };
-  }, [mouseX, mouseY, isVisible]);
+  }, [mouseX, mouseY]);
 
   // Completely omit from DOM when reduced motion is preferred or device is touch-based
   if (isTouchDevice || prefersReducedMotion) {
@@ -104,38 +97,46 @@ export const CustomCursor: React.FC = () => {
       }`}
       aria-hidden="true"
     >
-      {/* Spring-lagged Outer Ring */}
+      {/* Spring-lagged Outer Ring Container */}
       <motion.div
-        data-testid="cursor-ring"
-        className={`absolute rounded-full border transition-[width,height,background-color,border-color] duration-200 ease-out flex items-center justify-center ${ringClasses}`}
+        className="pointer-events-none absolute top-0 left-0"
         style={{
           x: smoothX,
           y: smoothY,
-          width: ringSize,
-          height: ringSize,
-          translateX: -ringSize / 2,
-          translateY: -ringSize / 2,
         }}
       >
-        {cursorText && (
-          <span
-            data-testid="cursor-text"
-            className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] uppercase tracking-widest text-[#ff4d00] select-none pointer-events-none"
-          >
-            {cursorText}
-          </span>
-        )}
+        <div
+          data-testid="cursor-ring"
+          className={`relative flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border transition-[width,height,background-color,border-color] duration-200 ease-out ${ringClasses}`}
+          style={{
+            width: ringSize,
+            height: ringSize,
+          }}
+        >
+          {cursorText && (
+            <span
+              data-testid="cursor-text"
+              className="pointer-events-none absolute -bottom-5 left-1/2 -translate-x-1/2 select-none whitespace-nowrap font-mono text-[10px] uppercase tracking-widest text-[#ff4d00]"
+            >
+              {cursorText}
+            </span>
+          )}
+        </div>
       </motion.div>
 
-      {/* Immediate Solid Cadmium Dot */}
+      {/* Immediate Solid Cadmium Dot Container */}
       <motion.div
-        data-testid="cursor-dot"
-        className="absolute w-2 h-2 rounded-full bg-[#ff4d00] -translate-x-1 -translate-y-1"
+        className="pointer-events-none absolute top-0 left-0"
         style={{
           x: mouseX,
           y: mouseY,
         }}
-      />
+      >
+        <div
+          data-testid="cursor-dot"
+          className="h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ff4d00]"
+        />
+      </motion.div>
     </div>
   );
 };

@@ -3,7 +3,8 @@ import Lenis, { type LenisOptions } from 'lenis';
 
 /**
  * Initializes Lenis smooth scrolling engine for desktop environments with lerp: 0.1.
- * Automatically skips initialization on touch/mobile devices to preserve native gesture scrolling.
+ * Automatically skips initialization on touch/mobile devices and reduced-motion environments
+ * to preserve native gesture scrolling and avoid continuous RAF loops.
  * Cleans up requestAnimationFrame loop and Lenis instance on unmount.
  */
 export function useLenis(options?: Partial<LenisOptions>): Lenis | null {
@@ -23,7 +24,12 @@ export function useLenis(options?: Partial<LenisOptions>): Lenis | null {
       (!window.matchMedia && typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0)
     );
 
-    if (isTouch) {
+    // Reduced motion detection: bypass smooth scroll and continuous RAF loops
+    const prefersReducedMotion = Boolean(
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    );
+
+    if (isTouch || prefersReducedMotion) {
       return;
     }
 

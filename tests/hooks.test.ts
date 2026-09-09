@@ -321,6 +321,22 @@ describe('useLenis', () => {
     const { result } = renderHook(() => useLenis());
     expect(result.current).toBeNull();
   });
+
+  it('does not initialize Lenis when prefers-reduced-motion matches', () => {
+    vi.spyOn(window, 'matchMedia').mockImplementation((query: string) => ({
+      matches: query.includes('prefers-reduced-motion'),
+      media: query,
+      onchange: null,
+      addListener: () => {},
+      removeListener: () => {},
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      dispatchEvent: () => false,
+    } as unknown as MediaQueryList));
+
+    const { result } = renderHook(() => useLenis());
+    expect(result.current).toBeNull();
+  });
 });
 
 describe('CustomCursor Component', () => {

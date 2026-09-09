@@ -124,13 +124,11 @@ function scrollToAdjacentSection(direction: 'next' | 'prev', sectionIds: string[
     return;
   }
 
-  const scrollY = window.scrollY || window.pageYOffset || 0;
   let currentIndex = 0;
 
   for (let i = 0; i < elements.length; i++) {
     const rect = elements[i].getBoundingClientRect();
-    const top = rect.top + scrollY;
-    if (scrollY >= top - 120) {
+    if (rect.top <= 120) {
       currentIndex = i;
     }
   }
