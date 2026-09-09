@@ -26,7 +26,7 @@ export interface CertificationItem {
 }
 
 export interface SkillCategory {
-  category: 'Languages' | 'Frameworks & Technologies' | 'Tools' | 'Core Competencies' | string;
+  category: 'Languages' | 'Frameworks & Technologies' | 'Tools' | 'Core Competencies' | (string & {});
   skills: string[];
 }
 

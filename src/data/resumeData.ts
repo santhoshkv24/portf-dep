@@ -75,19 +75,16 @@ export const resumeData: ResumeData = {
       title: 'Oracle Certified Professional: Java SE 17 Developer',
       issuer: 'Oracle',
       link: 'https://www.oracle.com',
-      date: '2024',
     },
     {
       title: 'MongoDB Certified Associate Developer',
       issuer: 'MongoDB',
       link: 'https://www.mongodb.com',
-      date: '2024',
     },
     {
       title: 'SAP Certified: Generative AI Developer',
       issuer: 'SAP',
       link: 'https://www.sap.com',
-      date: '2024',
     },
   ],
   skills: [

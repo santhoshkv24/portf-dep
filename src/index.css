@@ -23,3 +23,11 @@
     color: #08090a;
   }
 }
+
+@layer utilities {
+  @media (pointer: coarse) {
+    .custom-cursor-container {
+      display: none !important;
+    }
+  }
+}
