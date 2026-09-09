@@ -14,6 +14,8 @@ export interface EducationItem {
   period: string;
   location: string;
   cgpa?: string;
+  percentage?: string;
+  field?: string;
   score?: string;
   details?: string;
 }

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
 import {
   Mail,
   Copy,
@@ -8,18 +7,14 @@ import {
   Github,
   Linkedin,
   MapPin,
-  Terminal,
-  Layers,
   ArrowUp
 } from 'lucide-react';
 import { resumeData } from '../data/resumeData';
 import { useOptionalCursor } from '../context/CursorContext';
-import { useReducedMotion } from '../hooks/useReducedMotion';
 
 export const Footer: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const cursor = useOptionalCursor();
-  const prefersReducedMotion = useReducedMotion();
 
   const handleCopyEmail = async () => {
     try {

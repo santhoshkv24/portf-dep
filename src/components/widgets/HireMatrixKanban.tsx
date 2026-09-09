@@ -1,20 +1,11 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import {
-  Users,
   Sparkles,
   Calendar,
-  CheckCircle2,
-  FileSpreadsheet,
   Video,
-  ArrowRight,
-  ShieldCheck,
-  Star,
-  RefreshCw,
-  ExternalLink
+  ArrowRight
 } from 'lucide-react';
 import { useOptionalCursor } from '../../context/CursorContext';
-import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 export interface Candidate {
   id: string;
@@ -130,7 +121,6 @@ export const HireMatrixKanban: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'kanban' | 'gemini'>('kanban');
 
   const cursor = useOptionalCursor();
-  const prefersReducedMotion = useReducedMotion();
 
   const handleSelectCandidate = (cand: Candidate) => {
     setSelectedCandidate(cand);

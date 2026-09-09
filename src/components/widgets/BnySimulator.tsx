@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import {
   Terminal,
   Play,
@@ -9,7 +8,6 @@ import {
   Layers,
   BarChart3,
   Sparkles,
-  ArrowRight,
   Code2
 } from 'lucide-react';
 import { useOptionalCursor } from '../../context/CursorContext';
@@ -167,7 +165,7 @@ export const BnySimulator: React.FC = () => {
     return () => clearTimers();
   }, []);
 
-  const runSimulation = (preset: BnyPromptPreset = activePreset) => {
+  const runSimulation = (_preset?: BnyPromptPreset) => {
     clearTimers();
     setIsSimulating(true);
     setCurrentStage(1);

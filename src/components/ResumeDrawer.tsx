@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import {
   X,
   Printer,
@@ -16,7 +15,6 @@ import {
 } from 'lucide-react';
 import { resumeData } from '../data/resumeData';
 import { useOptionalCursor } from '../context/CursorContext';
-import { useReducedMotion } from '../hooks/useReducedMotion';
 
 export interface ResumeDrawerProps {
   isOpen: boolean;
@@ -26,7 +24,6 @@ export interface ResumeDrawerProps {
 export const ResumeDrawer: React.FC<ResumeDrawerProps> = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
   const cursor = useOptionalCursor();
-  const prefersReducedMotion = useReducedMotion();
 
   // Close on Escape key
   useEffect(() => {

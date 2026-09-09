@@ -161,6 +161,7 @@ export const Hero: React.FC<HeroProps> = ({
   return (
     <section
       id="hero"
+      data-testid="hero-section"
       aria-label="Hero Introduction"
       className={cn(
         'relative min-h-screen pt-28 pb-16 md:pt-32 md:pb-24 flex items-center justify-center overflow-hidden',

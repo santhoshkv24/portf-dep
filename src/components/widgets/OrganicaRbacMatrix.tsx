@@ -1,21 +1,12 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import {
   Shield,
   KeyRound,
-  Lock,
-  FileCode2,
   Check,
   X,
-  Database,
-  Users,
-  Eye,
-  Server,
-  Terminal,
-  ShieldCheck
+  Database
 } from 'lucide-react';
 import { useOptionalCursor } from '../../context/CursorContext';
-import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 export interface RolePermission {
   roleId: 'admin' | 'manager' | 'team_lead' | 'employee' | 'customer';
@@ -157,7 +148,6 @@ export const OrganicaRbacMatrix: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'matrix' | 'security'>('matrix');
 
   const cursor = useOptionalCursor();
-  const prefersReducedMotion = useReducedMotion();
 
   const currentRole = RBAC_ROLES[selectedRoleIndex];
 

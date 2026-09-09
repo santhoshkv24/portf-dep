@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import {
   ArrowUpRight,
   Github,
@@ -11,7 +10,6 @@ import {
 } from 'lucide-react';
 import { projectsData } from '../data/projectsData';
 import { useOptionalCursor } from '../context/CursorContext';
-import { useReducedMotion } from '../hooks/useReducedMotion';
 import BnySimulator from './widgets/BnySimulator';
 import UrbanResolveLifecycle from './widgets/UrbanResolveLifecycle';
 import HireMatrixKanban from './widgets/HireMatrixKanban';
@@ -19,7 +17,6 @@ import OrganicaRbacMatrix from './widgets/OrganicaRbacMatrix';
 
 export const SelectedWork: React.FC = () => {
   const cursor = useOptionalCursor();
-  const prefersReducedMotion = useReducedMotion();
 
   // Map each project ID to its respective bespoke interactive simulator widget
   const renderInteractiveWidget = (projectId: string) => {

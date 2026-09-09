@@ -116,6 +116,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
 
   return (
     <header
+      data-testid="header-hud"
       className={cn(
         'fixed top-0 left-0 right-0 z-40 w-full',
         'bg-obsidian/85 backdrop-blur-md',

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import {
   MapPin,
   Eye,
@@ -9,13 +8,10 @@ import {
   CheckCircle2,
   ChevronRight,
   ChevronLeft,
-  ShieldCheck,
   Cpu,
-  FileCheck,
   RefreshCw
 } from 'lucide-react';
 import { useOptionalCursor } from '../../context/CursorContext';
-import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 export interface LifecycleState {
   id: string;
@@ -154,7 +150,6 @@ export const UrbanResolveLifecycle: React.FC = () => {
   const [simulateSlaBreach, setSimulateSlaBreach] = useState(false);
 
   const cursor = useOptionalCursor();
-  const prefersReducedMotion = useReducedMotion();
 
   const currentState = LIFECYCLE_STATES[activeStepIndex];
 

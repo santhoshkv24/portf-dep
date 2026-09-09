@@ -1,21 +1,12 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import {
-  Briefcase,
   Calendar,
   MapPin,
-  Building2,
-  CheckCircle2,
-  Sparkles,
-  ArrowUpRight
+  Building2
 } from 'lucide-react';
 import { resumeData } from '../data/resumeData';
-import { useOptionalCursor } from '../context/CursorContext';
-import { useReducedMotion } from '../hooks/useReducedMotion';
 
 export const Experience: React.FC = () => {
-  const cursor = useOptionalCursor();
-  const prefersReducedMotion = useReducedMotion();
 
   return (
     <section

@@ -1,17 +1,68 @@
+import React, { useState } from 'react';
+import { CursorProvider } from './context/CursorContext';
+import { CustomCursor } from './components/CustomCursor';
+import { useLenis } from './hooks/useLenis';
+import { HeaderHUD } from './components/HeaderHUD';
+import { Hero } from './components/Hero';
+import { SelectedWork } from './components/SelectedWork';
+import { Experience } from './components/Experience';
+import { TechnicalMatrix } from './components/TechnicalMatrix';
+import { ResumeDrawer } from './components/ResumeDrawer';
+import { Footer } from './components/Footer';
 
-export function App() {
+export const AppContent: React.FC = () => {
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+
+  // Initialize Lenis smooth scroll
+  useLenis();
+
   return (
-    <main className="min-h-screen bg-obsidian text-chalk">
-      <div className="mx-auto max-w-7xl px-4 py-8">
-        <h1 className="font-display text-4xl font-bold tracking-tight">
-          K V Santhosh
-        </h1>
-        <p className="mt-2 font-mono text-sm text-mist">
-          Systems &amp; Applied AI Engineer
-        </p>
-      </div>
-    </main>
+    <div className="min-h-screen bg-obsidian text-chalk selection:bg-cadmium selection:text-obsidian relative flex flex-col font-sans">
+      {/* Custom Magnetic Cursor */}
+      <CustomCursor />
+
+      {/* Global Telemetry HUD Header */}
+      <HeaderHUD
+        onOpenResume={() => setIsResumeOpen(true)}
+        enableKeyboardNav={true}
+      />
+
+      {/* Main Narrative Flow */}
+      <main className="flex-1 w-full" id="main-content">
+        {/* 01. Hero / Editorial Monolith */}
+        <Hero
+          onOpenResume={() => setIsResumeOpen(true)}
+          enableKeyboardNav={false}
+        />
+
+        {/* 02. Selected Work / 4 Marquee Case Studies */}
+        <SelectedWork />
+
+        {/* 03. Production Trajectory / Experience */}
+        <Experience />
+
+        {/* 04. Systems Architecture & Capabilities */}
+        <TechnicalMatrix />
+      </main>
+
+      {/* 05. Contact & Colophon */}
+      <Footer />
+
+      {/* Slide-Over Interactive Resume Drawer */}
+      <ResumeDrawer
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
+      />
+    </div>
   );
-}
+};
+
+export const App: React.FC = () => {
+  return (
+    <CursorProvider>
+      <AppContent />
+    </CursorProvider>
+  );
+};
 
 export default App;
