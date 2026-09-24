@@ -1,7 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   X,
+  Printer,
+  Copy,
   Download,
+  Check,
   FileText,
   ExternalLink,
   MapPin,
@@ -19,8 +22,8 @@ export interface ResumeDrawerProps {
 }
 
 export const ResumeDrawer: React.FC<ResumeDrawerProps> = ({ isOpen, onClose }) => {
+  const [copied, setCopied] = useState(false);
   const cursor = useOptionalCursor();
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Close on Escape key
   useEffect(() => {
@@ -45,28 +48,29 @@ export const ResumeDrawer: React.FC<ResumeDrawerProps> = ({ isOpen, onClose }) =
     };
   }, [isOpen]);
 
-  // Stop mouse wheel event propagation to prevent background scroll
-  useEffect(() => {
-    if (!isOpen) return;
-    const el = scrollContainerRef.current;
-    if (!el) return;
+  const handlePrint = () => {
+    window.print();
+  };
 
-    const stopWheel = (e: WheelEvent) => {
-      e.stopPropagation();
-    };
-
-    el.addEventListener('wheel', stopWheel, { passive: true });
-    return () => {
-      el.removeEventListener('wheel', stopWheel);
-    };
-  }, [isOpen]);
+  const handleCopyMarkdown = async () => {
+    try {
+      const res = await fetch('/resume.md');
+      const text = await res.text();
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      // Fallback
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   if (!isOpen) return null;
 
   return (
     <div
       data-testid="resume-drawer-backdrop"
-      data-lenis-prevent="true"
       className="fixed inset-0 z-50 bg-obsidian/85 backdrop-blur-sm flex justify-end"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
@@ -77,8 +81,7 @@ export const ResumeDrawer: React.FC<ResumeDrawerProps> = ({ isOpen, onClose }) =
     >
       <div
         data-testid="resume-drawer"
-        data-lenis-prevent="true"
-        className="w-full max-w-3xl bg-surface border-l border-border-hairline h-full flex flex-col text-chalk shadow-2xl overflow-hidden overscroll-contain"
+        className="w-full max-w-3xl bg-surface border-l border-border-hairline h-full flex flex-col text-chalk shadow-2xl overflow-hidden"
       >
         {/* Top Control Bar (Hidden on Print) */}
         <div className="p-4 md:p-5 border-b border-border-hairline bg-surface-elevated flex items-center justify-between gap-3 print:hidden">
@@ -90,19 +93,47 @@ export const ResumeDrawer: React.FC<ResumeDrawerProps> = ({ isOpen, onClose }) =
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Single Download PDF Action */}
+            {/* Print Action */}
+            <button
+              type="button"
+              onClick={handlePrint}
+              onMouseEnter={() => cursor?.setCursor('hover', 'PRINT PDF')}
+              onMouseLeave={() => cursor?.resetCursor()}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono bg-white/5 hover:bg-white/10 text-chalk border border-border-hairline transition-colors"
+              aria-label="Print or save as PDF"
+            >
+              <Printer className="w-3.5 h-3.5 text-cadmium" aria-hidden="true" />
+              <span className="hidden sm:inline">Print / PDF</span>
+            </button>
+
+            {/* Copy Markdown */}
+            <button
+              type="button"
+              onClick={handleCopyMarkdown}
+              onMouseEnter={() => cursor?.setCursor('hover', 'COPY RAW')}
+              onMouseLeave={() => cursor?.resetCursor()}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono bg-white/5 hover:bg-white/10 text-chalk border border-border-hairline transition-colors"
+              aria-label="Copy Markdown to clipboard"
+            >
+              {copied ? (
+                <Check className="w-3.5 h-3.5 text-emerald-400" aria-hidden="true" />
+              ) : (
+                <Copy className="w-3.5 h-3.5 text-cadmium" aria-hidden="true" />
+              )}
+              <span className="hidden sm:inline">{copied ? 'Copied' : 'Copy MD'}</span>
+            </button>
+
+            {/* Download .md */}
             <a
-              href="/resume.pdf"
-              download="K_V_Santhosh_Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/resume.md"
+              download="Santhosh_KV_Resume.md"
               onMouseEnter={() => cursor?.setCursor('hover', 'DOWNLOAD')}
               onMouseLeave={() => cursor?.resetCursor()}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono bg-cadmium text-obsidian hover:bg-white transition-colors font-bold rounded-sm shadow-sm"
-              aria-label="Download resume PDF"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono bg-white/5 hover:bg-white/10 text-chalk border border-border-hairline transition-colors"
+              aria-label="Download resume markdown file"
             >
-              <Download className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>Download PDF</span>
+              <Download className="w-3.5 h-3.5 text-cadmium" aria-hidden="true" />
+              <span className="hidden sm:inline">.MD</span>
             </a>
 
             {/* Close Button */}
@@ -120,11 +151,7 @@ export const ResumeDrawer: React.FC<ResumeDrawerProps> = ({ isOpen, onClose }) =
         </div>
 
         {/* Scrollable Printable Resume View */}
-        <div
-          ref={scrollContainerRef}
-          data-lenis-prevent="true"
-          className="flex-1 overflow-y-auto overscroll-contain p-6 md:p-10 space-y-8 print:p-0 print:overflow-visible text-chalk font-sans selection:bg-cadmium selection:text-obsidian"
-        >
+        <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-8 print:p-0 print:overflow-visible text-chalk font-sans selection:bg-cadmium selection:text-obsidian">
           {/* Header */}
           <div className="border-b border-border-hairline pb-6">
             <h1 className="text-3xl md:text-4xl font-display font-extrabold text-chalk uppercase tracking-tight">

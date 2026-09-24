@@ -13,17 +13,7 @@ export const AppContent: React.FC = () => {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   // Initialize Lenis smooth scroll
-  const lenis = useLenis();
-
-  // Prevent background scrolling via Lenis when Resume Drawer is open
-  React.useEffect(() => {
-    if (!lenis) return;
-    if (isResumeOpen) {
-      lenis.stop();
-    } else {
-      lenis.start();
-    }
-  }, [lenis, isResumeOpen]);
+  useLenis();
 
   return (
     <div className="min-h-screen bg-obsidian text-chalk selection:bg-cadmium selection:text-white relative flex flex-col font-sans">

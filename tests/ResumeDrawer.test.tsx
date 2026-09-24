@@ -49,17 +49,18 @@ describe('ResumeDrawer Component', () => {
     expect(handleClose).toHaveBeenCalledTimes(2);
   });
 
-  it('renders single download link pointing to /resume.pdf', () => {
+  it('calls window.print when print button is clicked', () => {
+    const printSpy = vi.spyOn(window, 'print').mockImplementation(() => {});
     render(
       <CursorProvider>
         <ResumeDrawer isOpen={true} onClose={vi.fn()} />
       </CursorProvider>
     );
 
-    const downloadLink = screen.getByRole('link', { name: /Download resume PDF/i });
-    expect(downloadLink).toBeInTheDocument();
-    expect(downloadLink).toHaveAttribute('href', '/resume.pdf');
-    expect(downloadLink).toHaveAttribute('download', 'K_V_Santhosh_Resume.pdf');
+    const printBtn = screen.getByLabelText(/Print or save as PDF/i);
+    fireEvent.click(printBtn);
+    expect(printSpy).toHaveBeenCalledTimes(1);
+    printSpy.mockRestore();
   });
 
   it('closes on Escape keypress', () => {
