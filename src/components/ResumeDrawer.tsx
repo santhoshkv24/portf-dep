@@ -151,7 +151,11 @@ export const ResumeDrawer: React.FC<ResumeDrawerProps> = ({ isOpen, onClose }) =
         </div>
 
         {/* Scrollable Printable Resume View */}
-        <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-8 print:p-0 print:overflow-visible text-chalk font-sans selection:bg-cadmium selection:text-obsidian">
+        <div
+          className="flex-1 overflow-y-auto overscroll-contain p-6 md:p-10 space-y-8 print:p-0 print:overflow-visible text-chalk font-sans selection:bg-cadmium selection:text-obsidian"
+          onWheel={(e) => e.stopPropagation()}
+          onTouchMove={(e) => e.stopPropagation()}
+        >
           {/* Header */}
           <div className="border-b border-border-hairline pb-6">
             <h1 className="text-3xl md:text-4xl font-display font-extrabold text-chalk uppercase tracking-tight">

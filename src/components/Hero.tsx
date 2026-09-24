@@ -179,7 +179,7 @@ export const Hero: React.FC<HeroProps> = ({
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center"
         >
           {/* Left Column (7 cols): Editorial Monolith Typography & CTAs */}
           <div className="lg:col-span-7 flex flex-col justify-center order-2 lg:order-1">
@@ -199,7 +199,7 @@ export const Hero: React.FC<HeroProps> = ({
 
             {/* Editorial Headline Block */}
             <motion.div variants={itemVariants} className="mb-4 sm:mb-6">
-              <h1 className="font-display font-black tracking-tight text-chalk uppercase leading-[0.92] text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
+              <h1 className="font-display font-black tracking-tight text-chalk uppercase leading-[0.92] text-5xl sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl 2xl:text-8xl">
                 <span className="block text-chalk drop-shadow-sm">{resumeData.name}</span>
               </h1>
             </motion.div>

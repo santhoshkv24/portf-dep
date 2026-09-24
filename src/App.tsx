@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CursorProvider } from './context/CursorContext';
 import { useLenis } from './hooks/useLenis';
 import { HeaderHUD } from './components/HeaderHUD';
@@ -13,7 +13,18 @@ export const AppContent: React.FC = () => {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   // Initialize Lenis smooth scroll
-  useLenis();
+  const lenis = useLenis();
+
+  // Stop Lenis while the resume drawer is open so wheel events
+  // reach the drawer's own scroll container instead of the page
+  useEffect(() => {
+    if (!lenis) return;
+    if (isResumeOpen) {
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
+  }, [isResumeOpen, lenis]);
 
   return (
     <div className="min-h-screen bg-obsidian text-chalk selection:bg-cadmium selection:text-white relative flex flex-col font-sans">
