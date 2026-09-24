@@ -154,7 +154,7 @@ export const Footer: React.FC = () => {
         {/* Colophon & Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-mist">
           <div>
-            © {new Date().getFullYear()} K V SANTHOSH • ALL FACTUAL CLAIMS VERIFIED VIA RESUME
+            © {new Date().getFullYear()} K V SANTHOSH
           </div>
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-cadmium" aria-hidden="true" />

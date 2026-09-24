@@ -199,7 +199,7 @@ export const Hero: React.FC<HeroProps> = ({
 
             {/* Editorial Headline Block */}
             <motion.div variants={itemVariants} className="mb-4 sm:mb-6">
-              <h1 className="font-display font-black tracking-tight text-chalk uppercase leading-[0.92] text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
+              <h1 className="font-display font-black tracking-tight text-chalk uppercase leading-[0.95] text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl break-normal">
                 <span className="block text-chalk drop-shadow-sm">{resumeData.name}</span>
               </h1>
             </motion.div>
@@ -293,10 +293,10 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
 
           {/* Right Column (5 cols): Integrated Editorial Studio Portrait */}
-          <div className="lg:col-span-5 flex justify-center order-1 lg:order-2">
+          <div className="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2">
             <motion.div
               variants={itemVariants}
-              className="relative w-full max-w-sm sm:max-w-md lg:max-w-none"
+              className="relative w-full max-w-xs sm:max-w-sm lg:max-w-[340px] xl:max-w-[380px]"
               style={{ perspective: 1000 }}
             >
               {/* Interactive 3D Tilt Parallax Container */}
