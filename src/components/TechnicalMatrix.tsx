@@ -47,14 +47,14 @@ export const TechnicalMatrix: React.FC = () => {
             <div
               key={idx}
               data-testid={`skill-group-${idx}`}
-              className="bg-surface/50 border border-border-hairline p-6 rounded-sm flex flex-col justify-between hover:border-white/20 transition-colors"
+              className="bg-surface/40 border border-border-hairline p-6 rounded-lg flex flex-col justify-between hover:border-white/20 transition-all duration-200"
             >
               <div>
                 <div className="flex items-center justify-between pb-3 mb-4 border-b border-border-hairline">
                   <span className="text-xs font-mono text-cadmium font-semibold uppercase">
                     0{idx + 1} DOMAIN
                   </span>
-                  <Terminal className="w-4 h-4 text-mist" aria-hidden="true" />
+                  <Terminal className="w-4 h-4 text-zinc-500" aria-hidden="true" />
                 </div>
                 <h3 className="text-lg font-display font-bold text-chalk mb-4">
                   {skillGroup.category}
@@ -63,7 +63,7 @@ export const TechnicalMatrix: React.FC = () => {
                   {skillGroup.skills.map((skill, sIdx) => (
                     <span
                       key={sIdx}
-                      className="px-2.5 py-1 text-xs font-mono bg-surface-elevated/70 border border-border-hairline text-chalk hover:border-cadmium transition-colors"
+                      className="px-2.5 py-1 text-xs font-mono bg-surface-elevated/80 border border-border-hairline text-zinc-300 rounded hover:border-cadmium hover:text-white transition-colors"
                     >
                       {skill}
                     </span>
@@ -71,7 +71,7 @@ export const TechnicalMatrix: React.FC = () => {
                 </div>
               </div>
 
-              <div className="mt-6 pt-3 border-t border-border-hairline/60 text-[10px] font-mono text-mist">
+              <div className="mt-6 pt-3 border-t border-border-hairline text-[10px] font-mono text-zinc-500">
                 Verified against production deployments
               </div>
             </div>
@@ -81,7 +81,7 @@ export const TechnicalMatrix: React.FC = () => {
         {/* Two Columns: Verified Certifications & Academic Foundations */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left: Verified Certifications (7 cols) */}
-          <div className="lg:col-span-7 bg-surface/30 border border-border-hairline p-6 md:p-8 rounded-sm">
+          <div className="lg:col-span-7 bg-surface/40 border border-border-hairline p-6 md:p-8 rounded-lg">
             <div className="flex items-center justify-between pb-4 mb-6 border-b border-border-hairline">
               <div className="flex items-center gap-2">
                 <Award className="w-5 h-5 text-cadmium" aria-hidden="true" />
@@ -89,7 +89,7 @@ export const TechnicalMatrix: React.FC = () => {
                   Verified Industry Certifications
                 </h3>
               </div>
-              <span className="text-xs font-mono text-mist">3 Official Accreditations</span>
+              <span className="text-xs font-mono text-zinc-400">3 Official Accreditations</span>
             </div>
 
             <div className="space-y-4">
@@ -99,7 +99,7 @@ export const TechnicalMatrix: React.FC = () => {
                   data-testid={`cert-item-${cIdx}`}
                   onMouseEnter={() => cursor?.setCursor('hover', 'VERIFY')}
                   onMouseLeave={() => cursor?.resetCursor()}
-                  className="p-4 bg-obsidian border border-border-hairline hover:border-cadmium/70 transition-all group flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  className="p-4 bg-obsidian/80 border border-border-hairline rounded-md hover:border-cadmium/70 transition-all duration-200 group flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                 >
                   <div>
                     <div className="text-[10px] font-mono text-cadmium font-semibold uppercase">
@@ -109,12 +109,12 @@ export const TechnicalMatrix: React.FC = () => {
                       {cert.title}
                     </div>
                     {cert.date && (
-                      <div className="text-xs font-mono text-mist mt-1">Issued: {cert.date}</div>
+                      <div className="text-xs font-mono text-zinc-400 mt-1">Issued: {cert.date}</div>
                     )}
                   </div>
 
                   <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded">
                       <CheckCircle2 className="w-3.5 h-3.5" aria-hidden="true" />
                       <span>Certified</span>
                     </span>
@@ -123,7 +123,7 @@ export const TechnicalMatrix: React.FC = () => {
                         href={cert.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-1.5 border border-border-hairline hover:border-white/30 text-mist hover:text-chalk transition-colors"
+                        className="p-1.5 border border-border-hairline rounded hover:border-white/30 text-zinc-400 hover:text-chalk transition-colors"
                         aria-label={`View ${cert.title} certification link`}
                       >
                         <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
@@ -136,7 +136,7 @@ export const TechnicalMatrix: React.FC = () => {
           </div>
 
           {/* Right: Academic Trajectory (5 cols) */}
-          <div className="lg:col-span-5 bg-surface/30 border border-border-hairline p-6 md:p-8 rounded-sm">
+          <div className="lg:col-span-5 bg-surface/40 border border-border-hairline p-6 md:p-8 rounded-lg">
             <div className="flex items-center justify-between pb-4 mb-6 border-b border-border-hairline">
               <div className="flex items-center gap-2">
                 <GraduationCap className="w-5 h-5 text-cadmium" aria-hidden="true" />
@@ -151,30 +151,30 @@ export const TechnicalMatrix: React.FC = () => {
                 <div
                   key={eIdx}
                   data-testid={`edu-item-${eIdx}`}
-                  className="pb-5 border-b border-border-hairline/60 last:border-0 last:pb-0"
+                  className="pb-5 border-b border-border-hairline last:border-0 last:pb-0"
                 >
                   <div className="flex items-baseline justify-between gap-2">
                     <h4 className="text-base md:text-lg font-display font-bold text-chalk">
                       {edu.institution}
                     </h4>
                     {edu.cgpa && (
-                      <span className="text-xs font-mono font-bold px-2 py-0.5 bg-cadmium/15 text-cadmium border border-cadmium/30">
+                      <span className="text-xs font-mono font-bold px-2.5 py-0.5 bg-cadmium/15 text-cadmium border border-cadmium/30 rounded">
                         CGPA: {edu.cgpa}
                       </span>
                     )}
-                    {edu.percentage && (
-                      <span className="text-xs font-mono font-bold px-2 py-0.5 bg-white/10 text-chalk border border-border-hairline">
-                        {edu.percentage}
+                    {(edu.score || edu.percentage) && (
+                      <span className="text-xs font-mono font-bold px-2.5 py-0.5 bg-white/10 text-chalk border border-border-hairline rounded">
+                        {edu.score || edu.percentage}
                       </span>
                     )}
                   </div>
 
-                  <div className="text-xs md:text-sm font-mono text-mist mt-1">
+                  <div className="text-xs md:text-sm font-mono text-zinc-400 mt-1">
                     {edu.degree}
                     {edu.field && <span> ({edu.field})</span>}
                   </div>
 
-                  <div className="flex items-center justify-between text-xs font-mono text-mist/70 mt-2">
+                  <div className="flex items-center justify-between text-xs font-mono text-zinc-500 mt-2">
                     <span>{edu.location}</span>
                     <span>{edu.period}</span>
                   </div>

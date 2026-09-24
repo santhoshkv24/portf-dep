@@ -35,7 +35,6 @@ export const Hero: React.FC<HeroProps> = ({
   const certBadgeText = primaryCert?.title.includes('Java SE 17')
     ? `${primaryCert.issuer.toUpperCase()} JAVA SE 17`
     : (primaryCert?.title.toUpperCase() ?? 'ORACLE JAVA SE 17');
-  const cityLocation = resumeData.location.split(',')[0].trim().toUpperCase();
 
   // Detect coarse pointer (touch devices) where 3D tilt should be bypassed
   const [isTouchDevice] = useState(() => {
@@ -184,21 +183,17 @@ export const Hero: React.FC<HeroProps> = ({
         >
           {/* Left Column (7 cols): Editorial Monolith Typography & CTAs */}
           <div className="lg:col-span-7 flex flex-col justify-center order-2 lg:order-1">
-            {/* Systems Telemetry Kicker */}
+            {/* Editorial Discipline & Location Kicker */}
             <motion.div
               variants={itemVariants}
               className="flex items-center gap-3 font-mono text-[11px] sm:text-xs text-zinc-400 uppercase tracking-widest mb-4"
             >
-              <div className="flex items-center gap-2 border border-border-hairline px-2.5 py-1 rounded-sm bg-surface/80 backdrop-blur-sm">
-                <span className="relative flex h-2 w-2 items-center justify-center">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cadmium opacity-75" />
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cadmium" />
-                </span>
-                <span className="text-chalk font-semibold">STATUS // AVAILABLE</span>
-              </div>
-              <span className="text-zinc-600 hidden sm:inline">•</span>
-              <span className="text-zinc-400 hidden sm:inline tracking-wider">
-                13.0827° N, 80.2707° E // {cityLocation}
+              <span className="font-semibold text-zinc-200 tracking-wider">
+                ENGINEERING PORTFOLIO
+              </span>
+              <span className="text-zinc-600">•</span>
+              <span className="text-zinc-400 tracking-wider">
+                {resumeData.location.toUpperCase()}
               </span>
             </motion.div>
 
@@ -327,32 +322,6 @@ export const Hero: React.FC<HeroProps> = ({
                   'hover:border-border-subtle'
                 )}
               >
-                {/* Crosshair Architectural Blueprint Accents (Corner Ticks) */}
-                <div
-                  className="pointer-events-none absolute top-2 left-2 z-20 font-mono text-[10px] text-zinc-500 leading-none"
-                  aria-hidden="true"
-                >
-                  +
-                </div>
-                <div
-                  className="pointer-events-none absolute top-2 right-2 z-20 font-mono text-[10px] text-zinc-500 leading-none"
-                  aria-hidden="true"
-                >
-                  +
-                </div>
-                <div
-                  className="pointer-events-none absolute bottom-2 left-2 z-20 font-mono text-[10px] text-zinc-500 leading-none"
-                  aria-hidden="true"
-                >
-                  +
-                </div>
-                <div
-                  className="pointer-events-none absolute bottom-2 right-2 z-20 font-mono text-[10px] text-zinc-500 leading-none"
-                  aria-hidden="true"
-                >
-                  +
-                </div>
-
                 {/* Studio Portrait Image */}
                 <img
                   data-testid="hero-portrait-img"
@@ -363,8 +332,8 @@ export const Hero: React.FC<HeroProps> = ({
                   loading="eager"
                   className={cn(
                     'w-full h-full object-cover object-center',
-                    'filter grayscale-[12%] contrast-[1.04] brightness-[0.98]',
-                    'transition-all duration-700 ease-out group-hover:scale-[1.02] group-hover:grayscale-0'
+                    'filter grayscale-[8%] contrast-[1.03] brightness-[0.98]',
+                    'transition-all duration-500 ease-out group-hover:scale-[1.02] group-hover:grayscale-0'
                   )}
                 />
 
@@ -374,13 +343,13 @@ export const Hero: React.FC<HeroProps> = ({
                   aria-hidden="true"
                 />
 
-                {/* Telemetry Badge 1: Education (Top Left Overlay) */}
+                {/* Context Badge 1: Education (Top Left Overlay) */}
                 <div
                   data-testid="hero-badge-education"
                   className={cn(
                     'absolute top-4 left-4 z-20',
-                    'flex items-center gap-2 px-3 py-1.5 rounded-sm',
-                    'bg-obsidian/85 backdrop-blur-md border border-border-hairline',
+                    'flex items-center gap-2 px-3 py-1.5 rounded-md',
+                    'bg-obsidian/90 backdrop-blur-md border border-border-hairline',
                     'font-mono text-[10px] sm:text-[11px] text-zinc-200 tracking-wider shadow-lg'
                   )}
                 >
@@ -388,29 +357,20 @@ export const Hero: React.FC<HeroProps> = ({
                   <span className="font-semibold">{educationBadgeText}</span>
                 </div>
 
-                {/* Telemetry Badge 2: Experience (Bottom Right Overlay) */}
+                {/* Context Badge 2: Experience (Bottom Right Overlay) */}
                 <div
                   data-testid="hero-badge-experience"
                   className={cn(
                     'absolute bottom-4 right-4 z-20',
-                    'flex items-center gap-2 px-3 py-1.5 rounded-sm',
-                    'bg-obsidian/85 backdrop-blur-md border border-border-hairline',
+                    'flex items-center gap-2 px-3 py-1.5 rounded-md',
+                    'bg-obsidian/90 backdrop-blur-md border border-border-hairline',
                     'font-mono text-[10px] sm:text-[11px] text-zinc-200 tracking-wider shadow-lg'
                   )}
                 >
                   <span className="relative flex h-2 w-2 items-center justify-center shrink-0">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cadmium opacity-75" />
                     <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cadmium" />
                   </span>
                   <span className="font-semibold text-chalk">{experienceBadgeText}</span>
-                </div>
-
-                {/* Bottom Left Coordinate Stamp */}
-                <div
-                  className="absolute bottom-4 left-4 z-20 font-mono text-[9px] text-zinc-500 tracking-widest hidden sm:block"
-                  aria-hidden="true"
-                >
-                  ID: KV-SYSTEMS // 2026
                 </div>
               </motion.div>
             </motion.div>

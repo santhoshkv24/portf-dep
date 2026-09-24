@@ -142,16 +142,15 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
             </span>
           </a>
 
-          {/* Telemetry pulse and Chennai IST timestamp */}
+          {/* Telemetry status and Chennai IST timestamp */}
           <div className="flex items-center gap-2 border-l border-border-hairline pl-4 sm:pl-6 text-xs font-mono">
             <span
               className="relative flex h-2 w-2 items-center justify-center shrink-0"
-              aria-label="Systems active telemetry pulse"
+              aria-label="Location status indicator"
             >
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cadmium opacity-75" />
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cadmium" />
             </span>
-            <span className="text-zinc-500 text-[11px] hidden lg:inline">CHENNAI</span>
+            <span className="text-zinc-400 text-[11px] hidden lg:inline">CHENNAI</span>
             <span
               data-testid="ist-clock"
               className="text-zinc-300 tabular-nums text-xs sm:text-[13px] tracking-tight"
@@ -269,7 +268,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
             <button
               type="button"
               onClick={handleMobileResumeClick}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded text-xs font-mono text-white bg-cadmium hover:bg-cadmium-hover transition-colors font-semibold"
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded text-xs font-mono text-obsidian bg-cadmium hover:bg-cadmium-hover transition-colors font-bold"
             >
               <FileText className="w-4 h-4" />
               <span>Open Resume [R]</span>

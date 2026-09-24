@@ -60,9 +60,9 @@ describe('Strict Resume Ingestion', () => {
       expect(c2c?.period).toBe('May 2025 – Jul 2025');
       expect(c2c?.location).toBe('Chennai, Tamil Nadu');
       expect(c2c?.technologies).toEqual(
-        expect.arrayContaining(['React 19', 'MUI v7', 'Node.js', 'Express', 'MySQL', 'JWT', 'REST APIs'])
+        expect.arrayContaining(['React', 'Node.js', 'Express', 'MySQL', 'JWT', 'REST APIs'])
       );
-      expect(c2c?.highlights.length).toBeGreaterThanOrEqual(5);
+      expect(c2c?.highlights.length).toBe(3);
     });
   });
 
@@ -76,17 +76,17 @@ describe('Strict Resume Ingestion', () => {
 
       const languages = resumeData.skills.find((s) => s.category === 'Languages')?.skills;
       expect(languages).toEqual(
-        expect.arrayContaining(['Java', 'C', 'C++', 'Python', 'JavaScript', 'SQL'])
+        expect.arrayContaining(['Java', 'C/C++', 'Python', 'JavaScript', 'SQL'])
       );
 
       const frameworks = resumeData.skills.find((s) => s.category === 'Frameworks & Technologies')?.skills;
       expect(frameworks).toEqual(
-        expect.arrayContaining(['Spring Boot', 'React.js', 'Node.js', 'Express.js', 'PostgreSQL', 'MongoDB', 'MySQL'])
+        expect.arrayContaining(['Spring Boot', 'React.js', 'Node.js', 'Express.js', 'PostgreSQL', 'MongoDB', 'MySQL', 'GraphQL'])
       );
 
       const tools = resumeData.skills.find((s) => s.category === 'Tools')?.skills;
       expect(tools).toEqual(
-        expect.arrayContaining(['Git', 'Docker', 'GCP', 'Postman', 'Linux'])
+        expect.arrayContaining(['Git', 'Jira', 'Postman', 'Linux'])
       );
 
       const competencies = resumeData.skills.find((s) => s.category === 'Core Competencies')?.skills;
@@ -107,7 +107,7 @@ describe('Strict Resume Ingestion', () => {
       const certNames = resumeData.certifications.map((c) => c.title);
       expect(certNames).toContain('Oracle Certified Professional: Java SE 17 Developer');
       expect(certNames).toContain('MongoDB Certified Associate Developer');
-      expect(certNames).toContain('SAP Certified: Generative AI Developer');
+      expect(certNames).toContain('SAP Certified: SAP Generative AI Developer');
     });
   });
 
@@ -118,28 +118,24 @@ describe('Strict Resume Ingestion', () => {
       expect(ids).toEqual(['bny-eliza', 'urban-resolve', 'hire-matrix', 'organica-ops']);
     });
 
-    it('defines simulator types and structural highlights for each project', () => {
+    it('defines technologies and structural highlights for each project', () => {
       const bny = projectsData.find((p) => p.id === 'bny-eliza');
-      expect(bny?.simulatorType).toBe('bny');
       expect(bny?.technologies).toContain('GraphQL');
       expect(bny?.technologies).toContain('AI Agents');
       expect(bny?.highlights.length).toBeGreaterThan(0);
 
       const urban = projectsData.find((p) => p.id === 'urban-resolve');
-      expect(urban?.simulatorType).toBe('urban-resolve');
       expect(urban?.technologies).toContain('Spring Boot');
-      expect(urban?.technologies).toContain('Google Cloud Vision');
+      expect(urban?.technologies).toContain('Google Gemini API');
       expect(urban?.highlights.length).toBeGreaterThan(0);
 
       const hire = projectsData.find((p) => p.id === 'hire-matrix');
-      expect(hire?.simulatorType).toBe('hire-matrix');
-      expect(hire?.technologies).toContain('Google Gemini');
+      expect(hire?.technologies).toContain('Google Gemini API');
       expect(hire?.technologies).toContain('MongoDB');
       expect(hire?.highlights.length).toBeGreaterThan(0);
 
       const organica = projectsData.find((p) => p.id === 'organica-ops');
-      expect(organica?.simulatorType).toBe('organica');
-      expect(organica?.technologies).toContain('React 19');
+      expect(organica?.technologies).toContain('React');
       expect(organica?.technologies).toContain('MySQL');
       expect(organica?.highlights.length).toBeGreaterThan(0);
     });

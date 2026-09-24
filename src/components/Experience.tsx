@@ -55,31 +55,31 @@ export const Experience: React.FC = () => {
                 />
 
                 {/* Experience Card */}
-                <div className="bg-surface/50 border border-border-hairline p-6 md:p-8 rounded-sm hover:border-white/20 transition-all">
+                <div className="bg-surface/40 border border-border-hairline p-6 md:p-8 rounded-lg hover:border-white/20 transition-all duration-300">
                   {/* Top Bar: Role & Period */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-border-hairline/80">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-border-hairline">
                     <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[10px] font-mono px-2 py-0.5 bg-cadmium/15 text-cadmium border border-cadmium/30 uppercase font-semibold">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-[11px] font-mono px-2.5 py-0.5 bg-cadmium/15 text-cadmium border border-cadmium/30 uppercase font-semibold rounded">
                           {isBNY ? 'GLOBAL BANKING // SDE INTERNSHIP' : 'ENTERPRISE PLATFORM // WEB DEV INTERNSHIP'}
                         </span>
                       </div>
                       <h3 className="text-2xl md:text-3xl font-display font-bold text-chalk tracking-tight">
                         {exp.role}
                       </h3>
-                      <div className="text-base md:text-lg font-mono text-cadmium mt-0.5 font-semibold flex items-center gap-2">
+                      <div className="text-base md:text-lg font-mono text-cadmium mt-1 font-semibold flex items-center gap-2">
                         <Building2 className="w-4 h-4 text-cadmium" aria-hidden="true" />
                         <span>{exp.company}</span>
                       </div>
                     </div>
 
-                    <div className="text-xs font-mono text-mist space-y-1 sm:text-right">
-                      <div className="flex items-center sm:justify-end gap-1.5 text-chalk font-semibold">
+                    <div className="text-xs font-mono text-zinc-400 space-y-1.5 sm:text-right">
+                      <div className="flex items-center sm:justify-end gap-1.5 text-zinc-200 font-semibold">
                         <Calendar className="w-3.5 h-3.5 text-cadmium" aria-hidden="true" />
                         <span>{exp.period}</span>
                       </div>
-                      <div className="flex items-center sm:justify-end gap-1.5 text-mist">
-                        <MapPin className="w-3.5 h-3.5 text-mist" aria-hidden="true" />
+                      <div className="flex items-center sm:justify-end gap-1.5 text-zinc-400">
+                        <MapPin className="w-3.5 h-3.5 text-zinc-500" aria-hidden="true" />
                         <span>{exp.location}</span>
                       </div>
                     </div>
@@ -87,10 +87,10 @@ export const Experience: React.FC = () => {
 
                   {/* Highlights Bullet List */}
                   <div className="my-6 space-y-3">
-                    <div className="text-xs font-mono text-cadmium uppercase font-semibold">
-                      Key Engineering Responsibilities & Impact:
+                    <div className="text-xs font-mono text-cadmium uppercase font-semibold tracking-wider">
+                      Key Engineering Responsibilities &amp; Impact:
                     </div>
-                    <ul className="space-y-3 text-xs md:text-sm font-sans text-mist">
+                    <ul className="space-y-3 text-xs md:text-sm font-sans text-zinc-300">
                       {exp.highlights.map((hl, idx) => (
                         <li key={idx} className="flex items-start gap-3 leading-relaxed">
                           <span className="text-cadmium font-mono font-bold text-sm select-none">
@@ -103,14 +103,14 @@ export const Experience: React.FC = () => {
                   </div>
 
                   {/* Technologies Strip */}
-                  <div className="pt-4 border-t border-border-hairline/80 flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-mono text-mist uppercase mr-2 font-semibold">
+                  <div className="pt-4 border-t border-border-hairline flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-mono text-zinc-400 uppercase mr-2 font-semibold">
                       Technologies:
                     </span>
                     {exp.technologies.map((tech, idx) => (
                       <span
                         key={idx}
-                        className="px-2.5 py-1 text-xs font-mono bg-obsidian border border-border-hairline text-chalk hover:border-cadmium transition-colors"
+                        className="px-2.5 py-1 text-xs font-mono bg-obsidian/80 border border-border-hairline text-zinc-300 rounded hover:border-cadmium hover:text-white transition-colors"
                       >
                         {tech}
                       </span>

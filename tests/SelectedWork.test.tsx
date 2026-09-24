@@ -27,17 +27,22 @@ describe('SelectedWork Section', () => {
     expect(screen.getByTestId('project-bny-eliza')).toHaveTextContent('01');
   });
 
-  it('renders interactive simulators inside each project container', () => {
+  it('does not render interactive simulators or architecture execution pipelines', () => {
     render(
       <CursorProvider>
         <SelectedWork />
       </CursorProvider>
     );
 
-    expect(screen.getByTestId('bny-simulator')).toBeInTheDocument();
-    expect(screen.getByTestId('urbanresolve-lifecycle')).toBeInTheDocument();
-    expect(screen.getByTestId('hirematrix-kanban')).toBeInTheDocument();
-    expect(screen.getByTestId('organica-rbac-matrix')).toBeInTheDocument();
+    expect(screen.queryByTestId('pipeline-bny-eliza')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('pipeline-urban-resolve')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('pipeline-hire-matrix')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('pipeline-organica-ops')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('bny-simulator')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('urbanresolve-lifecycle')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('hirematrix-kanban')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('organica-rbac-matrix')).not.toBeInTheDocument();
+    expect(screen.queryByText(/Interactive System Artifact/i)).not.toBeInTheDocument();
   });
 
   it('renders problem, architecture, and engineering contributions for case studies', () => {

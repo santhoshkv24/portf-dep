@@ -9,6 +9,10 @@
     color-scheme: dark;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: #08090a;
     color: #f4f3ee;
@@ -21,13 +25,5 @@
   ::selection {
     background-color: #ff4d00;
     color: #08090a;
-  }
-}
-
-@layer utilities {
-  @media (pointer: coarse) {
-    .custom-cursor-container {
-      display: none !important;
-    }
   }
 }

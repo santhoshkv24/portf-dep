@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { CursorProvider } from './context/CursorContext';
-import { CustomCursor } from './components/CustomCursor';
 import { useLenis } from './hooks/useLenis';
 import { HeaderHUD } from './components/HeaderHUD';
 import { Hero } from './components/Hero';
@@ -17,11 +16,8 @@ export const AppContent: React.FC = () => {
   useLenis();
 
   return (
-    <div className="min-h-screen bg-obsidian text-chalk selection:bg-cadmium selection:text-obsidian relative flex flex-col font-sans">
-      {/* Custom Magnetic Cursor */}
-      <CustomCursor />
-
-      {/* Global Telemetry HUD Header */}
+    <div className="min-h-screen bg-obsidian text-chalk selection:bg-cadmium selection:text-white relative flex flex-col font-sans">
+      {/* Global Navigation Header */}
       <HeaderHUD
         onOpenResume={() => setIsResumeOpen(true)}
         enableKeyboardNav={true}

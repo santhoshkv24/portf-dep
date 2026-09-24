@@ -49,7 +49,6 @@ export interface ProjectCaseStudy {
   solution: string;
   highlights: string[];
   technologies: string[];
-  simulatorType: 'bny' | 'urban-resolve' | 'hire-matrix' | 'organica';
   metrics?: ProjectMetric[];
   githubUrl?: string;
   liveUrl?: string;

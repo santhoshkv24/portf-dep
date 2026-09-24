@@ -60,7 +60,7 @@ export const Footer: React.FC = () => {
 
             {/* Email Action Widget */}
             <div className="lg:col-span-4 flex flex-col items-start lg:items-end gap-3">
-              <span className="text-xs font-mono text-mist uppercase tracking-wider">
+              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider">
                 Direct Communication Channel:
               </span>
               <button
@@ -68,7 +68,7 @@ export const Footer: React.FC = () => {
                 onClick={handleCopyEmail}
                 onMouseEnter={() => cursor?.setCursor('hover', 'COPY EMAIL')}
                 onMouseLeave={() => cursor?.resetCursor()}
-                className="w-full sm:w-auto inline-flex items-center justify-between gap-3 px-5 py-3.5 bg-cadmium hover:bg-cadmium-hover text-obsidian font-mono font-bold text-xs sm:text-sm tracking-wider uppercase transition-all shadow-[0_0_20px_rgba(255,77,0,0.2)]"
+                className="w-full sm:w-auto inline-flex items-center justify-between gap-3 px-5 py-3.5 bg-cadmium hover:bg-cadmium-hover text-obsidian font-mono font-bold text-xs sm:text-sm tracking-wider uppercase transition-all rounded shadow-sm"
                 aria-label="Copy email address"
               >
                 <div className="flex items-center gap-2">
@@ -78,12 +78,12 @@ export const Footer: React.FC = () => {
                 {copied ? (
                   <Check className="w-4 h-4 text-obsidian" aria-hidden="true" />
                 ) : (
-                  <Copy className="w-4 h-4 text-obsidian/70" aria-hidden="true" />
+                  <Copy className="w-4 h-4 text-obsidian/80" aria-hidden="true" />
                 )}
               </button>
 
               {copied && (
-                <span className="text-xs font-mono text-emerald-400 font-semibold animate-pulse">
+                <span className="text-xs font-mono text-emerald-400 font-semibold">
                   ✓ Address copied to clipboard
                 </span>
               )}

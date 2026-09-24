@@ -248,7 +248,7 @@ export const ResumeDrawer: React.FC<ResumeDrawerProps> = ({ isOpen, onClose }) =
                 </div>
                 <div className="text-xs font-mono text-cadmium font-semibold">
                   {edu.cgpa && `CGPA: ${edu.cgpa}`}
-                  {edu.percentage && `Percentage: ${edu.percentage}`}
+                  {(edu.score || edu.percentage) && `Score: ${edu.score || edu.percentage}`}
                 </div>
               </div>
             ))}

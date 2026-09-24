@@ -2,17 +2,17 @@ import { ResumeData } from '../types/portfolio';
 
 export const resumeData: ResumeData = {
   name: 'K V SANTHOSH',
-  title: 'Software Engineer / Full-Stack Developer / AI & ML Engineer',
-  tagline: 'Specializing in high-throughput backend architectures, autonomous AI agents, and enterprise full-stack systems.',
+  title: 'Software Engineer / Systems & Applied AI',
+  tagline: 'Specializing in backend architectures, autonomous AI agents, and enterprise full-stack systems.',
   location: 'Chennai, India',
   email: 'santhoshvedakrishnan@gmail.com',
   phone: '+91-9361888416',
   linkedin: 'linkedin.com/in/santhosh-vedakrishnan',
-  linkedinUrl: 'https://linkedin.com/in/santhosh-vedakrishnan',
+  linkedinUrl: 'https://www.linkedin.com/in/santhosh-vedakrishnan/',
   github: 'github.com/santhoshkv24',
   githubUrl: 'https://github.com/santhoshkv24',
   profileSummary:
-    'Computer Science Engineering student specializing in AI & ML, with experience building full-stack enterprise applications and AI-powered developer solutions. Interested in software engineering, backend systems, AI agents, intelligent applications, and solving complex problems through clean system design. Currently pursuing a B.Tech in Computer Science Engineering (AI & ML) at SRM University AP with a CGPA of 9.29/10.',
+    'Computer Science Engineering student specializing in AI & ML, with experience building full-stack enterprise applications and AI-powered developer solutions. Interested in software engineering, backend systems, AI agents, intelligent applications, and solving complex problems through clean system design. Currently pursuing a B.Tech in Computer Science Engineering (AI & ML) with a Minor in Marketing at SRM University AP with a CGPA of 9.29/10.',
   experience: [
     {
       id: 'bny-mellon',
@@ -21,11 +21,11 @@ export const resumeData: ResumeData = {
       period: 'Jun 2026 – Aug 2026',
       location: 'Chennai, Tamil Nadu',
       highlights: [
-        "Built AI agents on BNY's internal Eliza platform using LLMs, GraphQL, and prompt engineering, replacing manual static reporting workflows with conversational, on-demand data access across internal datasets.",
-        'Developed a natural-language chat agent with GraphQL-based data retrieval, allowing users to query specific data points in plain English instead of manually searching raw tables across multiple datasets.',
-        'Engineered a dynamic dashboard-generation agent that interprets user intent and automatically visualizes multi-dataset results on demand, removing the need for manually built dashboards and reducing time-to-insight for stakeholders.',
+        "Built a chat agent on BNY's internal Eliza platform that converts natural language queries into GraphQL requests and retrieves data through the internal Query Service of the Custody platform.",
+        "Built a dashboard agent that interprets broad user queries and dynamically generates dashboards with relevant cards, charts, and other visualizations based on user intent.",
+        "Worked with Python-based serverless functions and LLM API's that connect the agents with internal Custody services, handle query execution, and control the flow of requests.",
       ],
-      technologies: ['LLMs', 'AI Agents', 'GraphQL', 'Prompt Engineering'],
+      technologies: ['Python', 'Serverless', 'LLMs', 'AI Agents', 'GraphQL', 'Prompt Engineering'],
     },
     {
       id: 'c2c-advanced-systems',
@@ -34,14 +34,11 @@ export const resumeData: ResumeData = {
       period: 'May 2025 – Jul 2025',
       location: 'Chennai, Tamil Nadu',
       highlights: [
-        'Built a full-stack enterprise collaboration platform, Organica Ops, from scratch using React 19, MUI v7, Node.js, Express, and MySQL.',
-        'Developed functionality covering project tracking, dual-track task management for internal and customer work, meeting scheduling, and reporting.',
-        'Designed and implemented a 5-role RBAC system covering Admin, Manager, Team Lead, Employee, and Customer.',
-        'Implemented JWT authentication, bcrypt password hashing, Helmet.js security headers, rate limiting, and CORS policies across API routes.',
-        'Engineered 8+ backend modules with RESTful APIs, MySQL stored procedures, and Multer file uploads.',
-        'Integrated Nodemailer for meeting invitations and task notifications.',
+        'Built Organica Ops, a full-stack enterprise collaboration platform using React, Node.js, Express, and MySQL for project tracking, task management, meetings, and reporting.',
+        'Implemented a 5-role RBAC system for Admin, Manager, Team Lead, Employee, and Customer using JWT authentication and role-based API access.',
+        'Developed 8+ backend modules with RESTful APIs, MySQL stored procedures, file uploads using Multer, and automated meeting invites and task notifications using Nodemailer.',
       ],
-      technologies: ['React 19', 'MUI v7', 'Node.js', 'Express', 'MySQL', 'JWT', 'REST APIs'],
+      technologies: ['React', 'Node.js', 'Express', 'MySQL', 'JWT', 'REST APIs', 'Multer', 'Nodemailer'],
     },
   ],
   education: [
@@ -51,7 +48,8 @@ export const resumeData: ResumeData = {
       period: 'Jul 2023 – May 2027 (Expected)',
       location: 'Guntur, Andhra Pradesh',
       cgpa: '9.29/10',
-      details: 'Specialization in Artificial Intelligence & Machine Learning',
+      field: 'Minor in Marketing',
+      details: 'B.Tech CSE (AI & ML), Minor in Marketing | CGPA: 9.29/10',
     },
     {
       institution: 'Kendriya Vidyalaya HVF, Avadi',
@@ -59,7 +57,7 @@ export const resumeData: ResumeData = {
       period: 'Mar 2023',
       location: 'Chennai, Tamil Nadu',
       score: '87%',
-      details: 'Senior Secondary Education (CBSE)',
+      details: 'Senior Secondary Education (CBSE) | 87%',
     },
     {
       institution: 'Kendriya Vidyalaya HVF, Avadi',
@@ -67,38 +65,38 @@ export const resumeData: ResumeData = {
       period: 'Mar 2021',
       location: 'Chennai, Tamil Nadu',
       score: '91.4%',
-      details: 'Secondary School Examination (CBSE)',
+      details: 'Secondary School Examination (CBSE) | 91.4%',
     },
   ],
   certifications: [
     {
       title: 'Oracle Certified Professional: Java SE 17 Developer',
       issuer: 'Oracle',
-      link: 'https://www.oracle.com',
+      link: 'https://catalog-education.oracle.com/ords/certview/sharebadge?id=6AD92DA59CA02AD98CAC83F45AF902B0F741B4FB76B346560946DB2372F71CF3',
     },
     {
       title: 'MongoDB Certified Associate Developer',
       issuer: 'MongoDB',
-      link: 'https://www.mongodb.com',
+      link: 'https://www.credly.com/badges/635addc7-e5bc-46e4-8161-23c823e52f7c/linked_in_profile',
     },
     {
-      title: 'SAP Certified: Generative AI Developer',
+      title: 'SAP Certified: SAP Generative AI Developer',
       issuer: 'SAP',
-      link: 'https://www.sap.com',
+      link: 'https://www.credly.com/badges/af4e43e0-196b-42de-980e-8c63033d9cb8/linked_in_profile',
     },
   ],
   skills: [
     {
       category: 'Languages',
-      skills: ['Java', 'C', 'C++', 'Python', 'JavaScript', 'SQL'],
+      skills: ['Java', 'C/C++', 'Python', 'JavaScript', 'SQL'],
     },
     {
       category: 'Frameworks & Technologies',
-      skills: ['Spring Boot', 'React.js', 'Node.js', 'Express.js', 'PostgreSQL', 'MongoDB', 'MySQL'],
+      skills: ['Spring Boot', 'React.js', 'Node.js', 'Express.js', 'PostgreSQL', 'MongoDB', 'MySQL', 'GraphQL'],
     },
     {
       category: 'Tools',
-      skills: ['Git', 'Docker', 'GCP', 'Postman', 'Linux'],
+      skills: ['Git', 'Jira', 'Postman', 'Linux'],
     },
     {
       category: 'Core Competencies',
@@ -107,6 +105,8 @@ export const resumeData: ResumeData = {
         'Object-Oriented Programming',
         'System Design',
         'RESTful APIs',
+        'Generative AI / LLMs',
+        'Prompt Engineering',
       ],
     },
   ],
